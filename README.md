@@ -1,4 +1,4 @@
-# Coronavirus Modeling and Information (COVID-19)
+# **Coronavirus Modeling and Information (COVID-19)**
 Utilizing mulitple techniques and sources to analyze the novel coronavirus COVID-19
 
 <p align="center"> 
@@ -6,7 +6,7 @@ Utilizing mulitple techniques and sources to analyze the novel coronavirus COVID
 </p>
 
 # **Table of Contents** <!-- omit in toc -->
-- [Coronavirus Modeling and Information (COVID-19)](#coronavirus-modeling-and-information-covid-19)
+- [**Coronavirus Modeling and Information (COVID-19)**](#coronavirus-modeling-and-information-covid-19)
 - [**Introduction**](#introduction)
 - [**Initial EDA**](#initial-eda)
 - [**Contact Me!**](#contact-me)
