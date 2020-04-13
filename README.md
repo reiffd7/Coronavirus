@@ -21,6 +21,14 @@ This project is tackling modeling and visualizing the novel coronavirus COVID-19
 
 # **Initial EDA**
 
+<img src="/imgs/readme_imgs/countriesGrowth.png">
+<img src="/imgs/readme_imgs/countriesGrowthZoom.png">
+<img src="/imgs/readme_imgs/countriesDeath.png">
+
+
+<img src="/imgs/readme_imgs/statesGrowth.png">
+<img src="/imgs/readme_imgs/statesDeath.png">
+
 
 # **Contact Me!**
 <p class="lead" align="center"><font size='4'>Linked-In<br> <a href="https://www.linkedin.com/in/thomas-a-duffy/">Thomas Duffy</a><br></font><hr />
