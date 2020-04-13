@@ -21,6 +21,8 @@ This project is tackling modeling and visualizing the novel coronavirus COVID-19
 
 # **Initial EDA**
 
+**COVID-19 Growth Status April 12th:**
+
 <img src="/imgs/readme_imgs/countriesGrowth.png">
 <img src="/imgs/readme_imgs/countriesGrowthZoom.png">
 <img src="/imgs/readme_imgs/countriesDeath.png">
