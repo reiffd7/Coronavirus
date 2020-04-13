@@ -30,13 +30,7 @@ This project is tackling modeling and visualizing the novel coronavirus COVID-19
 <img src="/imgs/readme_imgs/statesDeath.png">
 
 
-# **Contact Me!**
-<p class="lead" align="center"><font size='4'>Linked-In<br> <a href="https://www.linkedin.com/in/thomas-a-duffy/">Thomas Duffy</a><br></font><hr />
-   <p class="lead" align="center"> <font size='4'>E-Mail</font><br>
-    <font size='3'><strong> tommy.duffy@gmail.com</strong><br></p>
-    <hr />
-    <p class="lead" align="center"> <font size='4'>Github<br>
-    <a href="https://github.com/ThomasADuffy">Thomas Duffy</a><br></font></p>
+
 
 # **Readme Images and Data Credits/Sources**  
 ## Readme Images sources
