@@ -1,45 +1,61 @@
-# **Coronavirus Modeling and Information (COVID-19)**
-Utilizing mulitple techniques and sources to analyze the novel coronavirus COVID-19
 
-<p align="center"> 
-<img src="/imgs/readme_imgs/Coronavirus-COVID-19-1.jpg">
-</p>
+## Introduction
 
-# **Table of Contents** <!-- omit in toc -->
-- [**Coronavirus Modeling and Information (COVID-19)**](#coronavirus-modeling-and-information-covid-19)
-- [**Introduction**](#introduction)
-- [**Initial EDA**](#initial-eda)
-- [**Contact Me!**](#contact-me)
-- [**Readme Images and Data Credits/Sources**](#readme-images-and-data-creditssources)
-  - [Readme Images sources](#readme-images-sources)
-  - [Datasets sources](#datasets-sources)
+Source Code from [Data Visualization of COVID-19 in the US: Have we turned the Corner?](https://towardsdatascience.com/data-visualization-of-covid-19-in-the-us-1881938aaf17)
 
-# **Introduction**
-This project is tackling modeling and visualizing the novel coronavirus COVID-19.
+
+![Screenshot](imgs/cover.jpg)
+Photo by Yassine Khalfalli on Unsplash
 
 
 
-# **Initial EDA**
-
-**COVID-19 Growth Status April 12th:**
-
-<img src="/imgs/readme_imgs/countriesGrowth.png">
-<img src="/imgs/readme_imgs/countriesGrowthZoom.png">
-<img src="/imgs/readme_imgs/countriesDeath.png">
+![Screenshot](imgs/scatterMap.png)
 
 
-<img src="/imgs/readme_imgs/statesGrowth.png">
-<img src="/imgs/readme_imgs/statesDeath.png">
+## File Structure
 
 
 
+    
+    '''
+    ├── README.md
+    ├── imgs
+    │   ├── cover.jpg
+    │   ├── readme_imgs
+    │   │   ├── Coronavirus-COVID-19-1.jpg
+    │   │   ├── countriesDeath.png
+    │   │   ├── countriesGrowth.png
+    │   │   ├── countriesGrowthZoom.png
+    │   │   ├── statesDeath.png
+    │   │   └── statesGrowth.png
+    │   └── scatterMap.png
+    ├── notebooks
+    │   ├── Continents\ EX.ipynb
+    │   ├── DR_EDA.ipynb
+    │   ├── EDA\ notebook.ipynb
+    │   └── Untitled.ipynb
+    └── src
+        ├── AllStatesAnalysis_Static.py
+        ├── AnimatedBase.py
+        ├── AnimatedScatterMap.py
+        ├── World_Coronavirus_Analysis.py
+        ├── __pycache__
+        │   └── AnimatedBase.cpython-37.pyc
+        └── exponential.py
+    '''
 
-# **Readme Images and Data Credits/Sources**  
-## Readme Images sources
+  Data is stored locally
 
-Title Image - https://www.siasat.com/first-bollywood-celebrity-tested-positive-covid-19-1861929/
+## Next Steps
+
+1. Improved data pipeline
+2. Build a model
 
 
-## Datasets sources  
 
-“Novel Coronavirus (COVID-19) Cases Data .” Humanitarian Data Exchange, John Hopkins Medical School, data.humdata.org/dataset/novel-coronavirus-2019-ncov-cases. 
+
+
+
+
+
+
