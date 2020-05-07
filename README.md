@@ -45,6 +45,7 @@ Photo by Yassine Khalfalli on Unsplash
     '''
 
   Data is stored locally
+  Visualizations on [plotly](https://plotly.com/~daniel.reiff#/)
 
 ## Next Steps
 
