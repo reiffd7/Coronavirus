@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import folium
 import plotly.express as px
 from plotly.subplots import make_subplots
-
+from datetime import date
 import plotly.io as pio
 import chart_studio
 import chart_studio.plotly as py
@@ -14,65 +14,6 @@ chart_studio.tools.set_credentials_file(username='daniel.reiff', api_key='jhEpBS
 pio.renderers.default = "iframe_connected"
 
 np.seterr(divide = 'ignore') 
-
-us_state_abbrev = {
-    'Alabama': 'AL',
-    'Alaska': 'AK',
-    'American Samoa': 'AS',
-    'Arizona': 'AZ',
-    'Arkansas': 'AR',
-    'California': 'CA',
-    'Colorado': 'CO',
-    'Connecticut': 'CT',
-    'Delaware': 'DE',
-    'District of Columbia': 'DC',
-    'Florida': 'FL',
-    'Georgia': 'GA',
-    'Guam': 'GU',
-    'Hawaii': 'HI',
-    'Idaho': 'ID',
-    'Illinois': 'IL',
-    'Indiana': 'IN',
-    'Iowa': 'IA',
-    'Kansas': 'KS',
-    'Kentucky': 'KY',
-    'Louisiana': 'LA',
-    'Maine': 'ME',
-    'Maryland': 'MD',
-    'Massachusetts': 'MA',
-    'Michigan': 'MI',
-    'Minnesota': 'MN',
-    'Mississippi': 'MS',
-    'Missouri': 'MO',
-    'Montana': 'MT',
-    'Nebraska': 'NE',
-    'Nevada': 'NV',
-    'New Hampshire': 'NH',
-    'New Jersey': 'NJ',
-    'New Mexico': 'NM',
-    'New York': 'NY',
-    'North Carolina': 'NC',
-    'North Dakota': 'ND',
-    'Northern Mariana Islands':'MP',
-    'Ohio': 'OH',
-    'Oklahoma': 'OK',
-    'Oregon': 'OR',
-    'Pennsylvania': 'PA',
-    'Puerto Rico': 'PR',
-    'Rhode Island': 'RI',
-    'South Carolina': 'SC',
-    'South Dakota': 'SD',
-    'Tennessee': 'TN',
-    'Texas': 'TX',
-    'Utah': 'UT',
-    'Vermont': 'VT',
-    'Virgin Islands': 'VI',
-    'Virginia': 'VA',
-    'Washington': 'WA',
-    'West Virginia': 'WV',
-    'Wisconsin': 'WI',
-    'Wyoming': 'WY'
-}
 
 
 class ScatterMap(object):
@@ -139,10 +80,9 @@ class ScatterMap(object):
     def prepDF(self):
         self.df.sort_values(by=['state', 'date'], inplace=True)
         self.df = df.reset_index()
-        self.df['state'] = self.df['state'].apply(lambda x: us_state_abbrev[x])
-        self.df['NewCases'] = self.df.groupby(['state', 'fips'])['cases'].diff(1).fillna(0)
+        self.df['NewCases'] = self.df.groupby(['state', 'fips'])['positive'].diff(1).fillna(0)
         self.df['NewCasesInLastWeek'] = self.df.groupby(['state', 'fips'])['NewCases'].apply(lambda x: x.rolling(7, min_periods=0).sum())
-        self.df['slope'] = (self.df['NewCasesInLastWeek'] - self.df.groupby(['state', 'fips'])['NewCasesInLastWeek'].shift(1))/(self.df['cases'] - self.df.groupby(['state', 'fips'])['cases'].shift(1))
+        self.df['slope'] = (self.df['NewCasesInLastWeek'] - self.df.groupby(['state', 'fips'])['NewCasesInLastWeek'].shift(1))/(self.df['positive'] - self.df.groupby(['state', 'fips'])['positive'].shift(1))
         self.df['sensitive_slopeBH'] = self.df.groupby(['state', 'fips'])['slope'].apply(lambda x: x.rolling(10, win_type='blackmanharris', min_periods=0).mean())
         self.df['sensitive_slopeTriang'] = self.df.groupby(['state', 'fips'])['slope'].apply(lambda x: x.rolling(10, win_type='triang', min_periods=0).mean())
         self.df['sensitive_slopeBox'] = self.df.groupby(['state', 'fips'])['slope'].apply(lambda x: x.rolling(10, win_type='boxcar', min_periods=0).mean())
@@ -176,7 +116,7 @@ class ScatterMap(object):
     )
 
     def initialState(self):
-        self.scatter2_dict['x'] = np.log(self.df[self.df['date'] == self.dates[0]]['cases'].to_numpy())
+        self.scatter2_dict['x'] = np.log(self.df[self.df['date'] == self.dates[0]]['positive'].to_numpy())
         self.scatter2_dict['y'] = np.log(self.df[self.df['date'] == self.dates[0]]['NewCasesInLastWeek'].to_numpy())
         self.scatter2_dict['text'] = self.df[self.df['date'] == self.dates[0]]['state'].to_numpy()
         self.scatter2_dict['ids'] = self.df[self.df['date'] == self.dates[0]]['state'].to_numpy()
@@ -187,27 +127,29 @@ class ScatterMap(object):
         frames = []
         for date in self.dates:
             frames_dict = dict(
-                    name = date,
+                    name = str(date),
                     data = [],
                     traces = list(range(3))
         )
-            self.scatter2_dict['x'] = np.log(self.df[self.df['date'] == date]['cases'].to_numpy())
+            self.scatter2_dict['x'] = np.log(self.df[self.df['date'] == date]['positive'].to_numpy())
             self.scatter2_dict['y'] = np.log(self.df[self.df['date'] == date]['NewCasesInLastWeek'].to_numpy())
             self.scatter2_dict['text'] = self.df[self.df['date'] == date]['state'].to_numpy()
             self.scatter2_dict['ids'] = self.df[self.df['date'] == date]['state'].to_numpy()
             frames_dict['data'].append(self.choro(date))
             frames_dict['data'].append(self.scatter(**self.scatter1_dict))
             frames_dict['data'].append(self.scatter(**self.scatter2_dict))
-            self.Animate.addSliderStep(date)
+            self.Animate.addSliderStep(str(date))
             frames.append(frames_dict)
         self.Animate.fig.update(frames=frames)
 
 
 
 if __name__ == '__main__':
-    date = '5_03'
-    data_path = '../local_data/covid-19-data-master {}/us-states.csv'.format(date)
-    df = pd.read_csv(data_path, index_col=0)
+    url = 'https://covidtracking.com/api/v1/states/daily.csv'
+
+    date = str(date.today())
+    df = pd.read_csv(url, parse_dates=['date'], index_col=['date']).sort_index()
+    df = df[['state', 'fips', 'positive', 'death', 'hospitalizedCumulative', 'onVentilatorCumulative']]
     AnimatedScatterMap = ScatterMap(df, 1, 2, 'sensitive_slopeBox', date)
     
 
